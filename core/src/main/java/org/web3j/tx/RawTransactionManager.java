@@ -77,6 +77,18 @@ public class RawTransactionManager extends TransactionManager {
     }
 
     public RawTransactionManager(
+            Web3j web3j,
+            TxSignService txSignService,
+            long chainId,
+            TransactionReceiptProcessor transactionReceiptProcessor) {
+        super(transactionReceiptProcessor, txSignService.getAddress());
+
+        this.web3j = web3j;
+        this.chainId = chainId;
+        this.txSignService = txSignService;
+    }
+
+    public RawTransactionManager(
             Web3j web3j, Credentials credentials, long chainId, int attempts, long sleepDuration) {
         super(web3j, attempts, sleepDuration, credentials.getAddress());
 
